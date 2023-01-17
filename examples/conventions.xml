@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This file provides examples for various conventions on how tools use property
+names and values for special fields, attachments, tags, steps and more.
+
+Example by Testmo. Copyright 2023 Testmo GmbH. All rights reserved.
+Testmo test management software - https://www.testmo.com/
+-->
+<testsuites>
+    <testsuite name="Tests">
+        <testcase name="testExample" classname="Tests">
+            <properties>
+                <!-- Regular basic properties and values -->
+                <property name="priority" value="high" />
+                <property name="author" value="Adrian" />
+
+                <!-- Example for a property with text value -->
+                <property name="description">
+                    This text describes the purpose of this test case and provides
+                    an overview of what the test does and how it works.
+                </property>
+
+                <!-- Some tools also support type hints as part of the property names. Check your
+                CI or test management tool to learn if and which type hints are supported. Type hints
+                are removed from the property names. -->
+                <property name="url:github" value="https://github.com/org/project/blob/code.js#L200" />
+                <property name="html:output">
+                    <![CDATA[<h1>Title</h1><p>Text</p>]]>
+                </property>
+
+                <!-- Different ways to reference attachments -->
+                <property name="attachment" value="screenshots/dashboard.png" />
+                <property name="attachment" value="screenshots/users.png" />
+
+                <property name="attachment1" value="logs/browser/console.txt" />
+                <property name="attachment2" value="logs/server/access.txt" />
+
+                <property name="attachment" value="https://build-server/runs/45112/screenshot1.png" />
+                <property name="attachment" value="data:text/html;base64,SGVsbG8sIFdvcmxkIQ==" />
+
+                <!-- Different ways to document steps -->
+                <property name="step" value="This is a test step." />
+                <property name="step" value="Tools will automatically index all steps." />
+
+                <property name="step1" value="You can also use unique step property names if needed." />
+                <property name="step2" value="And this is another test step." />
+
+                <property name="step">
+                    This is a more complex test step with multiple lines
+                    of text using a property with a text value.
+                </property>
+
+                <!-- You can optionally also include a step result as part of the property name.
+                Check your CI or test management tool if it supports statuses. -->
+                <property name="step[passed]" value="This is a test step that passed." />
+                <property name="step[failure]" value="And this step had a failure." />
+                <property name="step[skipped]" value="This step wasn't executed." />
+                <property name="step[error]" value="And this step had an error." />
+
+                <!-- Some tools support custom HTML tags to document step sub fields. Check
+                your CI or test management tool to learn about HTML support. -->
+                <property name="step[passed]"><![CDATA[
+                    <test-step-subfield name="Step">
+                        This line describes this step. You can also use <strong>HTML</strong>.
+                    </test-step-subfield>
+                    <test-step-subfield name="Expected">
+                        You can optionally include more sub fields, e.g. for the expected results.
+                    </test-step-subfield>
+                ]]></property>
+            </properties>
+
+            <!-- For testing tools that don't support test case properties yet,
+            developers can alternatively output properties as part of the system out.
+            All the above conventions (property names and values) work exactly the same.
+            Additionally, many tools support attachments directly in system out as well. -->
+            <system-out><![CDATA[
+Output line #1
+Output line #2
+
+[[PROPERTY|author=Adrian]]
+[[PROPERTY|language=english]]
+
+[[PROPERTY|browser-log]]
+Log line #1
+Log line #2
+Log line #3
+[[/PROPERTY]]
+
+[[PROPERTY|html:output]]
+<h1>Title</h1>
+<p>This is an <strong>HTML</strong> example.</p>
+[[/PROPERTY]]
+
+[[ATTACHMENT|screenshots/dashboard.png]]
+[[ATTACHMENT|screenshots/users.png]]]]>
+            </system-out>
+        </testcase>
+    </testsuite>
+</testsuites>

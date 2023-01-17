@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This example shows how test suite and test case properties are supported by various tools.
+
+Example by Testmo. Copyright 2023 Testmo GmbH. All rights reserved.
+Testmo test management software - https://www.testmo.com/
+-->
+<testsuites>
+    <testsuite name="Tests">
+        <!-- Most tools already support properties for test suites -->
+        <properties>
+            <property name="version" value="1.774" />
+            <property name="commit" value="ef7bebf" />
+            <property name="browser" value="Google Chrome" />
+            <property name="ci" value="https://github.com/actions/runs/1234" />
+            <property name="config"> <!-- Some tools support properties with text content -->
+                Config line #1
+                Config line #2
+                Config line #3
+            </property>
+        </properties>
+        <testcase name="testExample" classname="Tests">
+            <!-- More and more tools also support properties for test cases now -->
+            <properties>
+                <property name="priority" value="high" />
+                <property name="language" value="english" />
+                <property name="author" value="Adrian" />
+                <property name="attachment" value="screenshots/dashboard.png" />
+                <property name="attachment" value="screenshots/users.png" />
+
+                <!-- Optional support for properties with text values -->
+                <property name="description">
+                    This text describes the purpose of this test case and provides
+                    an overview of what the test does and how it works.
+                </property>
+            </properties>
+        </testcase>
+    </testsuite>
+</testsuites>
